@@ -23,14 +23,13 @@ Name                                      Exam    Avg     Grade
 ----------------------------------------------------------------
 Bugs Bunny                                 93       94.83    A
 Jimmy Crack Corn                           68       65.33    D
-ifite tansi                                23       60.83    D
 
 OVERALL GRADE DISTRIBUTION:
 
   A: 1
   B: 3
   C: 1
-  D: 2
+  D: 1
   E: 0
   F: 0
   G: 0

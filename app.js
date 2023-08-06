@@ -1,15 +1,17 @@
 const express = require('express');
 const fs = require('fs')
 const multer = require('multer');
+const serverless = require('serverless-http');
 
 
 const upload = multer()
 const app = express();
+const router = express.Router();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //read text file and calclate the number of words
-app.post('/doc', upload.single('file'), async (req, res, next) => {
+router.post('/doc', upload.single('file'), async (req, res, next) => {
     try {
       var writeStream = fs.createWriteStream("output.txt");
     const k1 = req.file 
@@ -203,16 +205,7 @@ app.post('/doc', upload.single('file'), async (req, res, next) => {
     }
 })
 
-app.post('/give', upload.single('file'), (req, res) => {
-    let k1 = req.file
-    if (!k1) {
-        return res.send('error')
-    }
-    let k2 = k1.buffer.toString()
-    res.send(k2)
-})
+app.use('/.netlify/functions/api', router);  // path must route to lambda
 
-
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-});
+module.exports = app
+module.exports.handler = serverless(app)
