@@ -6,7 +6,11 @@ Name                                      Exam    Avg     Grade
 ----------------------------------------------------------------
 Joe Schmuckatelli                          90       84.25    B
 Monica Lewinsky                            78       71.40    C
-onica okoye                                48       19.90    I
+onica3 okoye                               48       19.90    I
+Joee Schmuckatelli                         90       84.25    B
+Monicae Lewinsky                           78       71.40    C
+onicae okoye                               48       19.90    I
+onicaii okoye                              90       36.70    G
 
 HISTORY CLASS
 
@@ -15,6 +19,8 @@ Name                                      Exam    Avg     Grade
 ----------------------------------------------------------------
 Marvin Dipwart                             88       80.30    B
 James T. Kirk                              88       80.80    B
+Marvine Dipwart                            88       80.30    B
+James Te. Kirk                             88       80.80    B
 
 MATH CLASS
 
@@ -23,16 +29,18 @@ Name                                      Exam    Avg     Grade
 ----------------------------------------------------------------
 Bugs Bunny                                 93       94.83    A
 Jimmy Crack Corn                           68       65.33    D
+Bugse Bunny                                93       94.83    A
+Jimmye Crack Corn                          68       65.33    D
 
 OVERALL GRADE DISTRIBUTION:
 
-  A: 1
-  B: 3
-  C: 1
-  D: 1
+  A: 2
+  B: 6
+  C: 2
+  D: 2
   E: 0
   F: 0
-  G: 0
+  G: 1
   H: 0
-  I: 1
+  I: 2
   J: 0

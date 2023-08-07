@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 //read text file and calclate the number of words
 router.post('/doc', upload.single('file'), async (req, res, next) => {
     try {
-      var writeStream = fs.createWriteStream("output.txt");
+    //var writeStream = fs.createWriteStream("output.txt");
     const k1 = req.file 
     if (!k1) {
         return res.status(400).send('No files were uploaded.');
@@ -128,12 +128,12 @@ router.post('/doc', upload.single('file'), async (req, res, next) => {
 
     
     //output th english
-    const header1 = "\nENGLISH CLASS\n\n" +
+    let header1 = "\nENGLISH CLASS\n\n" +
                             "Student                                   Final   Final   Letter\n" +
                             "Name                                      Exam    Avg     Grade\n"  +
                             "----------------------------------------------------------------\n"
 
-    writeStream.write(header1);
+    //writeStream.write(header1);
 
         for (const person in people) {
             if (people[person].English) {
@@ -141,17 +141,18 @@ router.post('/doc', upload.single('file'), async (req, res, next) => {
                 const examGrade = people[person].English.ExamGrade;
                 const letterGrade = people[person].English.letterGrade;
                 const studentLine1 = `${person.padEnd(42)} ${examGrade.toString().padEnd(8)} ${finalGrade.padEnd(8)} ${letterGrade}\n`;
-                writeStream.write(studentLine1);
+                header1 += studentLine1
             }
         }
 
+
         //output the history
-        const header2 = "\nHISTORY CLASS\n\n" +
+        let header2 = "\nHISTORY CLASS\n\n" +
                             "Student                                   Final   Final   Letter\n" +
                             "Name                                      Exam    Avg     Grade\n"  +
                             "----------------------------------------------------------------\n"
 
-        writeStream.write(header2);
+        //writeStream.write(header2);
 
         for (const person in people) {
             if (people[person].History) {
@@ -159,17 +160,18 @@ router.post('/doc', upload.single('file'), async (req, res, next) => {
                 const examGrade = people[person].History.ExamGrade;
                 const letterGrade = people[person].History.letterGrade;
                 const studentLine2 = `${person.padEnd(42)} ${examGrade.toString().padEnd(8)} ${finalGrade.padEnd(8)} ${letterGrade}\n`;
-                writeStream.write(studentLine2)
+                //writeStream.write(studentLine2)
+                header2 += studentLine2
             }
         }
                  
         //output the math
-        const header3 = "\nMATH CLASS\n\n" +
+        let header3 = "\nMATH CLASS\n\n" +
                             "Student                                   Final   Final   Letter\n" +
                             "Name                                      Exam    Avg     Grade\n"  +
                             "----------------------------------------------------------------\n"
 
-        writeStream.write(header3);
+        //writeStream.write(header3);
 
         for (const person in people) {
             if (people[person].Math) {
@@ -177,39 +179,62 @@ router.post('/doc', upload.single('file'), async (req, res, next) => {
                 const examGrade = people[person].Math.ExamGrade;
                 const letterGrade = people[person].Math.letterGrade;
                 const studentLine3 = `${person.padEnd(42)} ${examGrade.toString().padEnd(8)} ${finalGrade.padEnd(8)} ${letterGrade}\n`;
-                writeStream.write(studentLine3);
+                //writeStream.write(studentLine3);
+                header3 += studentLine3
             }
         }
-
-        writeStream.write('\nOVERALL GRADE DISTRIBUTION:\n\n')
+          let header4 = "\nOVERALL GRADE DISTRIBUTION:\n\n"
+        //writeStream.write('\nOVERALL GRADE DISTRIBUTION:\n\n')
   for (const grade in gradeDistribution) {
-    writeStream.write(`  ${grade}: ${gradeDistribution[grade]}\n`);
+    //writeStream.write(`  ${grade}: ${gradeDistribution[grade]}\n`);
+    let studentLine4 = `  ${grade}: ${gradeDistribution[grade]}\n`;
+    header4 += studentLine4
   }
 
         
-        await new Promise((resolve, reject) => {
+        /*await new Promise((resolve, reject) => {
           writeStream.end();
           writeStream.on('finish', resolve);
           writeStream.on('error', reject);
         });
-        
-        res.download('output.txt', (err) => {
+
+        res.status(200).download('output.txt', (err) => {
             if (err) {
                 console.error('Error sending the file:', err);
                 res.status(500).send('Error sending the file.');
             }
-        });
+        });*/
+
+        const header = header1 + header2 + header3 + header4
+        res.setHeader('Content-Disposition', 'attachment; filename=output.txt');
+        res.setHeader('Content-Type', 'text/plain');
+        res.send(header)
 
     } catch (err) {
         console.log(err);
     }
 })
 
+router.post('/up', upload.single('file'), async (req, res, next) => {
+  const k1 = req.file
+  if (!k1) {
+      return res.status(400).send('No files were uploaded.');
+  }
+  const ks = k1.buffer.toString()
+  const ka = "i love you"
+  res.setHeader('Content-Disposition', 'attachment; filename=output.txt');
+  res.setHeader('Content-Type', 'text/plain');
+  // Send the combined content as the response
+  res.status(200).send(ks);
+})
+  
+
 router.get('/', (req, res) => {
+  console.log('Hello World!')
   res.send('Hello World!')
 });
 
-app.use('/.netlify/functions/api', router);  // path must route to lambda
+app.use('/.netlify/functions/app', router);  // path must route to lambda
 
 module.exports = app
 module.exports.handler = serverless(app)
