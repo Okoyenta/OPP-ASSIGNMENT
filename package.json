@@ -2,11 +2,10 @@
   "name": "text-file-reader",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "build": "netlify-lambda build functions",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "build": "netlify deploy --prod"
   },
   "author": "Okoyenta Evaristus Kaosisochukwu 2019514083",
   "license": "ISC",

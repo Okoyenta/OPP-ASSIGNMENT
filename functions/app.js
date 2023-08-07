@@ -205,6 +205,10 @@ router.post('/doc', upload.single('file'), async (req, res, next) => {
     }
 })
 
+router.get('/', (req, res) => {
+  res.send('Hello World!')
+});
+
 app.use('/.netlify/functions/api', router);  // path must route to lambda
 
 module.exports = app
